@@ -1,4 +1,21 @@
-<div *ngFor="let poke of pokemon">
-<span>{{poke.name}}</span>
-<span>{{poke.url}}</span>
+<div #scrollContainer class="content-container" (scroll)="onScroll($event)">
+    <div class="search-bar">
+        <input type="text" [(ngModel)]="searchData">
+        <button (click)="searchPokemon()">Search</button>
+        <button (click)="resetData()">Reset</button>
+    </div>
+    <div class="cards-container" [ngClass]="{'centered': pokemonList.length === 1}">
+        <div class="card" *ngFor="let pokemon of pokemonList">
+            <div class="card__header">
+                <div class="details">
+                    <div class="card__id">{{pokemon.id}}</div>
+                    <div class="card__name">{{pokemon.name}}</div>
+                </div>
+                <img class="card__image" src="{{pokemon.sprites.front_default}}">
+            </div>
+            <div class="card__stat" *ngFor="let stat of pokemon.stats">
+                <span>{{stat.stat.name}}</span><span>{{stat.base_stat}}</span>
+            </div>
+        </div>
+    </div>
 </div>
